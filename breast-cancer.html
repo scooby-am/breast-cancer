@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Breast Cancer Risk Questionnaire</title>
+
+  <style>
+    :root{
+      --accent:#c2185b;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --shadow: 0 12px 30px rgba(0,0,0,0.12);
+      --border: rgba(255,255,255,0.45);
+    }
+
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 10% 0%, rgba(194,24,91,0.25), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(59,130,246,0.22), transparent 55%),
+        linear-gradient(180deg, #eef2ff, #f8fafc 60%, #ffffff);
+      padding: 24px;
+      text-align:center;
+    }
+
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    .card{
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(15,23,42,0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 16px auto;
+      text-align:left;
+    }
+
+    .hero{
+      text-align:center;
+      padding: 26px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.65);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+      margin-top: 10px;
+    }
+
+    h1{
+      margin: 0 0 6px;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle{ margin: 0; color: var(--muted); }
+    .small{ font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+    .hidden{ display:none; }
+
+    .progressRow{
+      display:flex; justify-content:space-between; align-items:center;
+      gap: 12px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .progressText{ font-size: 14px; color: var(--muted); }
+
+    .bar{
+      width: 100%;
+      height: 10px;
+      background: rgba(15,23,42,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar > div{
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .question-title{
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0 12px;
+      color: #111827;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      margin: 10px 0 14px;
+    }
+
+    .opt{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 12px 12px;
+      border: 1px solid rgba(15,23,42,0.12);
+      border-radius: 14px;
+      cursor:pointer;
+      user-select:none;
+      background: white;
+    }
+
+    .opt:hover{
+      border-color: rgba(194,24,91,0.45);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    .opt input{ transform: scale(1.15); }
+
+    .nav{
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    button{
+      padding: 12px 18px;
+      border: none;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: bold;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .primary{ background: var(--accent); color:white; }
+    .secondary{ background:#e9ecf7; color:#1f2a44; box-shadow:none; }
+    button:hover{ opacity: 0.93; }
+
+    .error{
+      color:#b00020;
+      background:#fff1f1;
+      border:1px solid #ffd2d2;
+      padding:10px;
+      border-radius:12px;
+      margin-top:10px;
+      display:none;
+    }
+
+    .resultBox{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(15,23,42,0.08);
+    }
+
+    .badge{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      border: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 8px;
+    }
+    .low{ background: rgba(61, 220, 151, 0.18); }
+    .med{ background: rgba(255, 214, 102, 0.22); }
+    .high{ background: rgba(255, 107, 107, 0.22); }
+
+    a{ color: var(--accent); }
+    ul{ margin: 10px 0 0; padding-left: 18px; }
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 820px){
+      .twoCol{ grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- TITLE PAGE -->
+    <div id="titlePage" class="hero">
+      <h1>Breast Cancer Risk Questionnaire</h1>
+      <p class="subtitle">School project website • Educational scoring only</p>
+      <p class="small">
+        This questionnaire is <strong>not medical advice</strong> and does not diagnose breast cancer.
+        If you have symptoms or concerns, talk to a GP or use the NZ help links.
+      </p>
+      <br />
+      <button class="primary" id="startBtn">Start Questionnaire</button>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="quizPage" class="card hidden">
+      <div class="progressRow">
+        <div class="progressText" id="progressText"></div>
+      </div>
+      <div class="bar"><div id="progressBar"></div></div>
+
+      <div class="question-title" id="questionText"></div>
+      <div class="options" id="optionsBox"></div>
+
+      <div class="nav">
+        <button class="secondary" id="backBtn">⬅ Back</button>
+        <button class="primary" id="nextBtn">Next ➡</button>
+      </div>
+
+      <div class="error" id="errorBox">Please select an option before continuing.</div>
+    </div>
+
+    <!-- FINISH PAGE -->
+    <div id="finishPage" class="card hidden">
+      <div class="center" style="text-align:center;">
+        <h2>Results</h2>
+        <p class="small">Educational score only — not a diagnosis.</p>
+      </div>
+
+      <div id="riskBox" class="resultBox"></div>
+
+      <div class="twoCol">
+        <div class="resultBox" id="summaryBox"></div>
+
+        <div class="resultBox">
+          <strong>Help in New Zealand</strong>
+          <p class="small">If you are worried, please use these trusted resources:</p>
+          <ul>
+            <li><a href="https://www.breastscreen.govt.nz/" target="_blank" rel="noreferrer">BreastScreen Aotearoa (screening info)</a></li>
+            <li><a href="https://www.tewhatuora.govt.nz/" target="_blank" rel="noreferrer">Te Whatu Ora – Health New Zealand</a></li>
+            <li><a href="https://www.health.govt.nz/your-health/conditions-and-treatments/diseases-and-illnesses/breast-cancer" target="_blank" rel="noreferrer">Health (NZ) – Breast cancer information</a></li>
+            <li><a href="https://www.cancersociety.org.nz/" target="_blank" rel="noreferrer">Cancer Society NZ</a></li>
+            <li><a href="https://www.healthline.govt.nz/" target="_blank" rel="noreferrer">Healthline NZ (free advice)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav" style="justify-content:center;">
+        <button class="secondary" id="restartBtn">Restart</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      { id:"age", text:"1) What is your age range?", options:["17–25","25–35","35–45","45–55","65–75","75–85","85–95","95–100"] },
+      { id:"sex", text:"2) What sex were you assigned at birth?", options:["Female","Male","Prefer not to say"] },
+      { id:"exercise", text:"3) Do you exercise often?", options:["Yes","Sometimes","No"] },
+      { id:"smoke", text:"4) Do you smoke?", options:["Yes","Sometimes","No"] },
+      { id:"alcohol", text:"5) Do you drink alcohol?", options:["Yes","Sometimes","No"] },
+      { id:"family", text:"6) Do you know if breast cancer has been or is in your family?", options:["Yes","Not sure","No"] },
+      { id:"overweight", text:"7) Are you overweight for your age?", options:["Yes","Not sure","No"] },
+      { id:"genetic", text:"8) Are there any known genetic mutations in your family? (e.g. BRCA1 or BRCA2)", options:["Yes","Not sure","No"] },
+      { id:"des", text:"9) Have you ever been exposed to diethylstilbestrol (DES)?", options:["Yes","Not sure","No"] },
+      { id:"dense", text:"10) Do you have dense breast tissue?", options:["Yes","No","Not sure"] },
+      { id:"radiation", text:"11) Did you have previous treatments using radiation on your breasts or chest area?", options:["Yes","Maybe","No"] },
+      { id:"menstruation", text:"12) At what age did you start menstruation?", options:["Under 12","12–14","15 or older","Prefer not to say"] },
+      { id:"birth", text:"13) Have you ever been pregnant or given birth?", options:["Yes","No","Prefer not to say"] },
+
+      { id:"firstChild", text:"14) If yes, what age did you have your first child?", options:["Under 30","30 or older","Not applicable"], showIf: (a) => a.birth === "Yes" },
+      { id:"breastfed", text:"15) Have you breastfed for more than 6 months?", options:["Yes","No","Not applicable"], showIf: (a) => a.birth === "Yes" },
+
+      { id:"hormones", text:"16) Have you used hormonal contraception or hormone replacement therapy?", options:["Yes","No","Not sure"] },
+      { id:"menopause", text:"17) Have you gone through menopause?", options:["Yes","No","Not sure"] },
+      { id:"condition", text:"18) Have you ever been diagnosed with a breast condition? (e.g. benign lump, abnormal cells)", options:["Yes","No","Not sure"] },
+      { id:"screening", text:"19) Have you ever had a breast screening? (e.g. mammogram, ultrasound)", options:["Yes","No","Not applicable (Too young)"] },
+      { id:"selfCheck", text:"20) Do you regularly check your breast or chest area often?", options:["Yes","Sometimes","No"] }
+    ];
+
+    const points = {
+      age: { "17–25":0, "25–35":0, "35–45":1, "45–55":2, "65–75":3, "75–85":3, "85–95":3, "95–100":3 },
+      sex: { "Female":1, "Male":0, "Prefer not to say":0 },
+      exercise: { "Yes":0, "Sometimes":1, "No":2 },
+      smoke: { "No":0, "Sometimes":1, "Yes":2 },
+      alcohol: { "No":0, "Sometimes":1, "Yes":2 },
+      family: { "No":0, "Not sure":1, "Yes":3 },
+      overweight: { "No":0, "Not sure":1, "Yes":2 },
+      genetic: { "No":0, "Not sure":2, "Yes":4 },
+      des: { "No":0, "Not sure":1, "Yes":2 },
+      dense: { "No":0, "Not sure":1, "Yes":2 },
+      radiation: { "No":0, "Maybe":2, "Yes":3 },
+      menstruation: { "Prefer not to say":0, "15 or older":0, "12–14":1, "Under 12":2 },
+      birth: { "Yes":0, "No":1, "Prefer not to say":0 },
+      firstChild: { "Under 30":0, "30 or older":1, "Not applicable":0 },
+      breastfed: { "Yes":0, "No":1, "Not applicable":0 },
+      hormones: { "No":0, "Not sure":1, "Yes":2 },
+      condition: { "No":0, "Not sure":1, "Yes":3 }
+    };
+
+    let currentIndex = 0;
+    const answers = {};
+
+    const titlePage = document.getElementById("titlePage");
+    const quizPage = document.getElementById("quizPage");
+    const finishPage = document.getElementById("finishPage");
+
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const questionText = document.getElementById("questionText");
+    const optionsBox = document.getElementById("optionsBox");
+    const errorBox = document.getElementById("errorBox");
+
+    const startBtn = document.getElementById("startBtn");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const summaryBox = document.getElementById("summaryBox");
+    const riskBox = document.getElementById("riskBox");
+
+    function visibleQuestions() {
+      return questions.filter(q => !q.showIf || q.showIf(answers));
+    }
+
+    function startQuiz() {
+      titlePage.classList.add("hidden");
+      finishPage.classList.add("hidden");
+      quizPage.classList.remove("hidden");
+      currentIndex = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      errorBox.style.display = "none";
+
+      const vis = visibleQuestions();
+      const q = vis[currentIndex];
+
+      progressText.textContent = `Question ${currentIndex + 1} of ${vis.length}`;
+      progressBar.style.width = Math.round(((currentIndex + 1) / vis.length) * 100) + "%";
+
+      questionText.textContent = q.text;
+      optionsBox.innerHTML = "";
+
+      const saved = answers[q.id];
+      q.options.forEach(opt => {
+        const label = document.createElement("label");
+        label.className = "opt";
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "currentQuestion";
+        input.value = opt;
+        if (saved === opt) input.checked = true;
+
+        const span = document.createElement("span");
+        span.textContent = opt;
+
+        label.appendChild(input);
+        label.appendChild(span);
+        optionsBox.appendChild(label);
+      });
+
+      backBtn.disabled = (currentIndex === 0);
+      backBtn.style.opacity = backBtn.disabled ? 0.5 : 1;
+
+      nextBtn.textContent = (currentIndex === vis.length - 1) ? "Finish ✅" : "Next ➡";
+    }
+
+    function getSelectedOption() {
+      const selected = document.querySelector('input[name="currentQuestion"]:checked');
+      return selected ? selected.value : null;
+    }
+
+    function goNext() {
+      const vis = visibleQuestions();
+      const q = vis[currentIndex];
+      const chosen = getSelectedOption();
+
+      if (!chosen) {
+        errorBox.style.display = "block";
+        return;
+      }
+
+      answers[q.id] = chosen;
+
+      if (q.id === "birth" && chosen !== "Yes") {
+        delete answers.firstChild;
+        delete answers.breastfed;
+      }
+
+      const newVis = visibleQuestions();
+      const isLast = (currentIndex === newVis.length - 1);
+
+      if (!isLast) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        showFinish();
+      }
+    }
+
+    function goBack() {
+      const vis = visibleQuestions();
+      const q = vis[currentIndex];
+      const chosen = getSelectedOption();
+      if (chosen) answers[q.id] = chosen;
+
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    function calculateScore() {
+      let score = 0;
+
+      for (const q of questions) {
+        if (q.showIf && !q.showIf(answers)) continue;
+        const ans = answers[q.id];
+        if (!ans) continue;
+
+        const map = points[q.id];
+        if (map && typeof map[ans] === "number") score += map[ans];
+      }
+      return score;
+    }
+
+    function riskLevel(score) {
+      if (score <= 6) return { label: "Low risk (educational)", cls: "low" };
+      if (score <= 13) return { label: "Medium risk (educational)", cls: "med" };
+      return { label: "High risk (educational)", cls: "high" };
+    }
+
+    function showFinish() {
+      quizPage.classList.add("hidden");
+      finishPage.classList.remove("hidden");
+
+      const score = calculateScore();
+      const r = riskLevel(score);
+
+      riskBox.innerHTML = `
+        <div class="badge ${r.cls}">${r.label}</div>
+        <div><strong>Your score:</strong> ${score}</div>
+        <p class="small">
+          This result is a <strong>school-project scoring system</strong>, not a medical diagnosis.
+          If you are worried, please talk to a GP or use the NZ links on this page.
+        </p>
+      `;
+
+      let html = "<strong>Your answers:</strong><ul>";
+      for (const q of questions) {
+        const visible = (!q.showIf || q.showIf(answers));
+        if (!visible) continue;
+        const a = answers[q.id] ?? "(No answer)";
+        html += `<li><strong>${q.text}</strong><br>${a}</li>`;
+      }
+      html += "</ul>";
+      summaryBox.innerHTML = html;
+    }
+
+    function restart() {
+      for (const key in answers) delete answers[key];
+      finishPage.classList.add("hidden");
+      quizPage.classList.add("hidden");
+      titlePage.classList.remove("hidden");
+    }
+
+    startBtn.addEventListener("click", startQuiz);
+    nextBtn.addEventListener("click", goNext);
+    backBtn.addEventListener("click", goBack);
+    restartBtn.addEventListener("click", restart);
+  </script>
+</body>
+</html>
+
+ 
+
+
+
