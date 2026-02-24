@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Breast Cancer Risk Questionnaire</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- TITLE PAGE -->
+    <div id="titlePage" class="hero">
+      <h1>Breast Cancer Risk Questionnaire</h1>
+      <p class="subtitle">School project website • Educational scoring only</p>
+      <p class="small">
+        This questionnaire is <strong>not medical advice</strong> and does not diagnose breast cancer.
+        If you have symptoms or concerns, talk to a GP or use the NZ help links.
+      </p>
+      <br>
+      <button class="primary" id="startBtn">Start Questionnaire</button>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="quizPage" class="card hidden">
+      <div class="progressRow">
+        <div class="progressText" id="progressText"></div>
+      </div>
+      <div class="bar"><div id="progressBar"></div></div>
+
+      <div class="question-title" id="questionText"></div>
+      <div class="options" id="optionsBox"></div>
+
+      <div class="nav">
+        <button class="secondary" id="backBtn">Back</button>
+        <button class="primary" id="nextBtn">Next</button>
+      </div>
+
+      <div class="error" id="errorBox">Please select an option before continuing.</div>
+    </div>
+
+    <!-- FINISH PAGE -->
+    <div id="finishPage" class="card hidden">
+      <div class="center" style="text-align:center;">
+        <h2>Results</h2>
+        <p class="small">Educational score only — not a diagnosis.</p>
+      </div>
+
+      <div id="riskBox" class="resultBox"></div>
+
+      <div class="twoCol">
+        <div class="resultBox" id="summaryBox"></div>
+
+        <div class="resultBox">
+          <strong>Help in New Zealand</strong>
+          <p class="small">If you are worried, please use these trusted resources:</p>
+          <ul>
+            <li><a href="https://www.breastscreen.govt.nz/" target="_blank" rel="noreferrer">BreastScreen Aotearoa (screening info)</a></li>
+            <li><a href="https://www.tewhatuora.govt.nz/" target="_blank" rel="noreferrer">Te Whatu Ora – Health New Zealand</a></li>
+            <li><a href="https://www.health.govt.nz/your-health/conditions-and-treatments/diseases-and-illnesses/breast-cancer" target="_blank" rel="noreferrer">Health (NZ) – Breast cancer information</a></li>
+            <li><a href="https://www.cancersociety.org.nz/" target="_blank" rel="noreferrer">Cancer Society NZ</a></li>
+            <li><a href="https://www.healthline.govt.nz/" target="_blank" rel="noreferrer">Healthline NZ (free advice)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav" style="justify-content:center;">
+        <button class="secondary" id="restartBtn">Restart</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
