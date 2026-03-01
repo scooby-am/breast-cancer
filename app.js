@@ -148,9 +148,10 @@ async function submitResults(score, riskLabel, answersObj) {
     await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload) // ✅ no custom headers
     });
+
+    console.log("Submitted to Google Sheet (request sent).");
   } catch (err) {
     console.error("Failed to submit results:", err);
   }
