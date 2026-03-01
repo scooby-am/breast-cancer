@@ -43,4 +43,4 @@ const points = {
   condition: { "No": 0, "Not sure": 1, "Yes": 3 }
 };
 
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz785x8bRqajCrnJOYrOuo7p8u-cJBgJtg6tzHlBXxJrZGP-sTmZnyp9bcaj_s7kislGg/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXhKH-5VKjUooUv7ktOdKZFmDEob7WzuuZSl4IBKLDELWJ_nPCSlmoO89HmwbysrwS6w/exec";
