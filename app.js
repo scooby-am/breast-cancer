@@ -1,5 +1,6 @@
 let currentIndex = 0;
 const answers = {};
+let hasConsent = false;
 
 const titlePage = document.getElementById("titlePage");
 const quizPage = document.getElementById("quizPage");
@@ -16,6 +17,10 @@ const backBtn = document.getElementById("backBtn");
 const nextBtn = document.getElementById("nextBtn");
 const restartBtn = document.getElementById("restartBtn");
 
+const consentYesBtn = document.getElementById("consentYesBtn");
+const consentNoBtn = document.getElementById("consentNoBtn");
+const consentMessage = document.getElementById("consentMessage");
+
 const summaryBox = document.getElementById("summaryBox");
 const riskBox = document.getElementById("riskBox");
 
@@ -24,6 +29,11 @@ function visibleQuestions() {
 }
 
 function startQuiz() {
+  if (!hasConsent) {
+    consentMessage.classList.remove("hidden");
+    return;
+  }
+
   titlePage.classList.add("hidden");
   finishPage.classList.add("hidden");
   quizPage.classList.remove("hidden");
@@ -197,3 +207,8 @@ startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", goNext);
 backBtn.addEventListener("click", goBack);
 restartBtn.addEventListener("click", restart);
+
+consentYesBtn.addEventListener("click", () => setConsent(true));
+consentNoBtn.addEventListener("click", () => setConsent(false));
+
+setConsent(false);
