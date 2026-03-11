@@ -1,10 +1,10 @@
 const questions = [
-  { id: "age", text: "1) What is your age range?", options: ["17–25", "25–35", "35–45", "45–55", "65–75", "75–85", "85–95", "95–100"] },
+  { id: "age", text: "1) What is your age range?", options: ["17–25", "25–35", "35–45", "45–55", "55-65", "65–75", "75–85", "85–95", "95–100"] },
   { id: "sex", text: "2) What sex were you assigned at birth?", options: ["Female", "Male", "Prefer not to say"] },
   { id: "exercise", text: "3) Do you exercise often?", options: ["Yes", "Sometimes", "No"] },
   { id: "smoke", text: "4) Do you smoke?", options: ["Yes", "Sometimes", "No"] },
   { id: "alcohol", text: "5) Do you drink alcohol?", options: ["Yes", "Sometimes", "No"] },
-  { id: "family", text: "6) Do you know if breast cancer has been or is in your family?", options: ["Yes", "Not sure", "No"] },
+  { id: "family", text: "6) Do you know if breast cancer has been or is in your family?", options: ["Yes", "Not sure", "No", "Prefer not to say"] },
   { id: "overweight", text: "7) Are you overweight for your age?", options: ["Yes", "Not sure", "No"] },
   { id: "genetic", text: "8) Are there any known genetic mutations in your family? (e.g. BRCA1 or BRCA2)", options: ["Yes", "Not sure", "No"] },
   { id: "des", text: "9) Have you ever been exposed to diethylstilbestrol (DES)?", options: ["Yes", "Not sure", "No"] },
