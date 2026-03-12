@@ -19,7 +19,7 @@ const questions = [
   { id: "hormones", text: "16) Have you used hormonal contraception or hormone replacement therapy?", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
   { id: "menopause", text: "17) Have you gone through menopause?", options: ["Yes", "No", "Not sure", " Not applicable"] },
   { id: "condition", text: "18) Have you ever been diagnosed with a breast condition? (e.g. benign lump, abnormal cells)", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
-  { id: "screening", text: "19) Have you ever had a breast screening? (e.g. mammogram, ultrasound)", options: ["Yes", "No", "Not applicabl", "Prefer not to say"] },
+  { id: "screening", text: "19) Have you ever had a breast screening? (e.g. mammogram, ultrasound)", options: ["Yes", "No", "Not applicable", "Prefer not to say"] },
   { id: "selfCheck", text: "20) Do you regularly check your breast or chest area often?", options: ["Yes", "Sometimes", "No", "Prefer not to say"] }
 ];
 
