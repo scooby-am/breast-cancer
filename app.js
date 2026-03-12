@@ -28,6 +28,16 @@ function visibleQuestions() {
   return questions.filter(q => !q.showIf || q.showIf(answers));
 }
 
+function setConsent(value) {
+  hasConsent = value;
+
+  startBtn.disabled = !value;
+  consentMessage.classList.toggle("hidden", value);
+
+  consentYesBtn.classList.toggle("selectedConsent", value === true);
+  consentNoBtn.classList.toggle("selectedConsent", value === false);
+}
+
 function startQuiz() {
   if (!hasConsent) {
     consentMessage.classList.remove("hidden");
@@ -118,7 +128,10 @@ function goBack() {
   const vis = visibleQuestions();
   const q = vis[currentIndex];
   const chosen = getSelectedOption();
-  if (chosen) answers[q.id] = chosen;
+
+  if (chosen) {
+    answers[q.id] = chosen;
+  }
 
   if (currentIndex > 0) {
     currentIndex--;
@@ -135,8 +148,11 @@ function calculateScore() {
     if (!ans) continue;
 
     const map = points[q.id];
-    if (map && typeof map[ans] === "number") score += map[ans];
+    if (map && typeof map[ans] === "number") {
+      score += map[ans];
+    }
   }
+
   return score;
 }
 
@@ -158,7 +174,7 @@ async function submitResults(score, riskLabel, answersObj) {
     await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      body: JSON.stringify(payload) // ✅ no custom headers
+      body: JSON.stringify(payload)
     });
 
     console.log("Submitted to Google Sheet (request sent).");
@@ -197,10 +213,16 @@ function showFinish() {
 }
 
 function restart() {
-  for (const key in answers) delete answers[key];
+  for (const key in answers) {
+    delete answers[key];
+  }
+
   finishPage.classList.add("hidden");
   quizPage.classList.add("hidden");
   titlePage.classList.remove("hidden");
+
+  currentIndex = 0;
+  setConsent(false);
 }
 
 startBtn.addEventListener("click", startQuiz);
