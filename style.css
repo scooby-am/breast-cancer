@@ -227,3 +227,32 @@ ul {
     grid-template-columns: 1fr 1fr;
   }
 }
+.consentBox {
+  max-width: 720px;
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.consentBox h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.consentActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+#consentMessage {
+  margin-top: 10px;
+  color: #b00020;
+  text-align: center;
+}
+
+button.selectedConsent {
+  outline: 2px solid rgba(194, 24, 91, 0.35);
+  transform: translateY(-1px);
+}
