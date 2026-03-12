@@ -5,7 +5,7 @@ const questions = [
   { id: "smoke", text: "4) Do you smoke?", options: ["Yes", "Sometimes", "No"] },
   { id: "alcohol", text: "5) Do you drink alcohol?", options: ["Yes", "Sometimes", "No"] },
   { id: "family", text: "6) Do you know if breast cancer has been or is in your family?", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
-  { id: "overweight", text: "7) Are you overweight for your age?", options: ["Yes", "Not sure", "No", "Prefer not to say"] },
+  { id: "overweight", text: "7) Are you overweight for your age?", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
   { id: "genetic", text: "8) Are there any known genetic mutations in your family? (e.g. BRCA1 or BRCA2)", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
   { id: "des", text: "9) Have you ever been exposed to diethylstilbestrol (DES)?", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
   { id: "dense", text: "10) Do you have dense breast tissue?", options: ["Yes", "No", "Not sure", "Prefer not to say"] },
