@@ -17,8 +17,31 @@
         This questionnaire is <strong>not medical advice</strong> and does not diagnose breast cancer.
         If you have symptoms or concerns, talk to a GP or use the NZ help links.
       </p>
+
+      <div class="card consentBox">
+        <h3>Voluntary Participation</h3>
+        <p class="small">
+          Participation in this study is completely voluntary. If you decide not to participate
+          there will not be negative consequences. Please be aware that if you decide to participate,
+          you may stop participating at any time and you may decide not to answer any specific question.
+        </p>
+        <p class="small">
+          By completing this questionnaire I am attesting that I have read and understand the
+          information above and I freely give my consent/assent to participate.
+        </p>
+
+        <div class="consentActions">
+          <button class="secondary" id="consentNoBtn" type="button">No</button>
+          <button class="primary" id="consentYesBtn" type="button">Yes</button>
+        </div>
+
+        <p class="small hidden" id="consentMessage">
+          You need to consent before starting the questionnaire.
+        </p>
+      </div>
+
       <br>
-      <button class="primary" id="startBtn">Start Questionnaire</button>
+      <button class="primary" id="startBtn" disabled>Start Questionnaire</button>
     </div>
 
     <!-- QUIZ PAGE -->

@@ -1,5 +1,6 @@
 let currentIndex = 0;
 const answers = {};
+let hasConsent = false;
 
 const titlePage = document.getElementById("titlePage");
 const quizPage = document.getElementById("quizPage");
@@ -16,6 +17,10 @@ const backBtn = document.getElementById("backBtn");
 const nextBtn = document.getElementById("nextBtn");
 const restartBtn = document.getElementById("restartBtn");
 
+const consentYesBtn = document.getElementById("consentYesBtn");
+const consentNoBtn = document.getElementById("consentNoBtn");
+const consentMessage = document.getElementById("consentMessage");
+
 const summaryBox = document.getElementById("summaryBox");
 const riskBox = document.getElementById("riskBox");
 
@@ -23,7 +28,22 @@ function visibleQuestions() {
   return questions.filter(q => !q.showIf || q.showIf(answers));
 }
 
+function setConsent(value) {
+  hasConsent = value;
+
+  startBtn.disabled = !value;
+  consentMessage.classList.toggle("hidden", value);
+
+  consentYesBtn.classList.toggle("selectedConsent", value === true);
+  consentNoBtn.classList.toggle("selectedConsent", value === false);
+}
+
 function startQuiz() {
+  if (!hasConsent) {
+    consentMessage.classList.remove("hidden");
+    return;
+  }
+
   titlePage.classList.add("hidden");
   finishPage.classList.add("hidden");
   quizPage.classList.remove("hidden");
@@ -108,7 +128,10 @@ function goBack() {
   const vis = visibleQuestions();
   const q = vis[currentIndex];
   const chosen = getSelectedOption();
-  if (chosen) answers[q.id] = chosen;
+
+  if (chosen) {
+    answers[q.id] = chosen;
+  }
 
   if (currentIndex > 0) {
     currentIndex--;
@@ -125,8 +148,11 @@ function calculateScore() {
     if (!ans) continue;
 
     const map = points[q.id];
-    if (map && typeof map[ans] === "number") score += map[ans];
+    if (map && typeof map[ans] === "number") {
+      score += map[ans];
+    }
   }
+
   return score;
 }
 
@@ -148,9 +174,10 @@ async function submitResults(score, riskLabel, answersObj) {
     await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
+
+    console.log("Submitted to Google Sheet (request sent).");
   } catch (err) {
     console.error("Failed to submit results:", err);
   }
@@ -186,13 +213,24 @@ function showFinish() {
 }
 
 function restart() {
-  for (const key in answers) delete answers[key];
+  for (const key in answers) {
+    delete answers[key];
+  }
+
   finishPage.classList.add("hidden");
   quizPage.classList.add("hidden");
   titlePage.classList.remove("hidden");
+
+  currentIndex = 0;
+  setConsent(false);
 }
 
 startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", goNext);
 backBtn.addEventListener("click", goBack);
 restartBtn.addEventListener("click", restart);
+
+consentYesBtn.addEventListener("click", () => setConsent(true));
+consentNoBtn.addEventListener("click", () => setConsent(false));
+
+setConsent(false);
