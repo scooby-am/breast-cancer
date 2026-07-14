@@ -9,7 +9,7 @@ breast-cancer/
 ├── index.html      # Main HTML structure
 ├── style.css       # All styles and responsive design
 ├── questions.js    # Question data, scoring points, Google Apps Script URL
-├── app.js          # Application logic, navigation, and submitResults()
+├── app.js          # Application logic, navigation, submitResults(), and downloadable letter generation
 └── README.md       # This file
 ```
 
@@ -33,6 +33,26 @@ php -S localhost:8000
 ```
 
 Then visit `http://localhost:8000` in your browser.
+
+## Downloadable Health Professional Letter
+
+After finishing the questionnaire, users can create a simple breast health questionnaire summary letter.
+
+The results page includes:
+
+- **Print / Save as PDF letter** - opens a printable letter that the user can save as a PDF from the browser print dialog.
+- **Download plain text letter** - downloads a `.txt` version for users who want a simple copy.
+
+The letter includes:
+
+- the educational risk result (low, medium, or high)
+- the score
+- a clear statement that this is not a diagnosis
+- the user's questionnaire answers
+- suggested discussion points for a GP, nurse, or healthcare provider
+- plain-language support notes for people who may need interpreter, cost, or health-literacy support
+
+The letter is generated locally in the browser. It does not require a server or extra library.
 
 ## Deployment via GitHub Pages
 
@@ -109,6 +129,8 @@ This questionnaire collects:
 - Anonymous answer selections
 
 **Does NOT collect:** name, email, IP address, or any personally identifiable information.
+
+The downloadable letter is generated locally in the user's browser. The app does not ask for the user's name or contact details to create the letter.
 
 ## License
 

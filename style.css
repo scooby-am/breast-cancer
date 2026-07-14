@@ -256,3 +256,15 @@ button.selectedConsent {
   outline: 2px solid rgba(194, 24, 91, 0.35);
   transform: translateY(-1px);
 }
+
+.letterBox {
+  text-align: center;
+}
+
+.letterActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
